@@ -1,0 +1,10 @@
+/bin
+.classpath
+.project
+target/
+*.iml
+.idea/
+.DS_Store
+/lib
+/out
+/web-service/logs
