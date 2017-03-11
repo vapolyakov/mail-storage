@@ -26,8 +26,11 @@
         <jersey-spring.version>1.18.3</jersey-spring.version>
         <spring-hadoop.version>2.4.0.RELEASE</spring-hadoop.version>
         <commons-io.version>2.5</commons-io.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <joda-time.version>2.9.7</joda-time.version>
         <log4j.version>1.2.17</log4j.version>
         <slf4j.version>1.7.24</slf4j.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -106,6 +109,17 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>joda-time</groupId>
+                <artifactId>joda-time</artifactId>
+                <version>${joda-time.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>log4j</groupId>
@@ -126,6 +140,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>jul-to-slf4j</artifactId>
                 <version>${slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
