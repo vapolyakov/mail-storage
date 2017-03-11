@@ -6,7 +6,6 @@ import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 
 import java.io.*;
 import java.net.URI;
@@ -22,12 +21,7 @@ public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
     private final Path root;
     private final String hdfsUri;
 
-    public HdfsFileStorageDaoImpl(
-            @Value("${mail.storage.hdfs.uri}")
-            String hdfsUri,
-            @Value("${mail.storage.hdfs.file.storage.root.path}")
-            String rootPath) throws URISyntaxException, IOException
-    {
+    public HdfsFileStorageDaoImpl(String hdfsUri, String rootPath) throws URISyntaxException, IOException {
         Configuration configuration = new Configuration();
         this.hdfs = FileSystem.get(new URI(hdfsUri), configuration);
         this.root = new Path(hdfsUri + rootPath);
@@ -64,6 +58,10 @@ public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
             logger.error("Download from hdfs failed", e);
             throw new RuntimeException(e);
         }
+    }
+
+    void clean() throws IOException {
+        hdfs.delete(root, true);
     }
 
     private Path constructPathFromRelative(String relativePath) {
