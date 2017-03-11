@@ -41,7 +41,7 @@ public class UploadMailHandler {
         logger.info("Handling /upload request for user_id={} and filename={}", userId, fileName);
 
         File saved = incomingFileSaver.saveIncomingFileLocally(userId, fileName, input);
-        logger.info("File successfully received and saved locally");
+        logger.info("File successfully received and saved locally in {}", saved.getAbsoluteFile());
 
         if (lengthExtractor.isTooBig(saved)) {
             throw new RuntimeException("File is too big and won't be saved");
