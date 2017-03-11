@@ -1,4 +1,4 @@
-package com.mailstorage.utils.local;
+package com.mailstorage.utils.file;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -36,7 +36,7 @@ public class LocalFileManager {
     public File getFileUploadTo(String folderPrefix, String fileSuffix) {
         File newFileDir = FileUtils.getFile(rootFolder, folderPrefix);
         newFileDir.mkdirs();
-        return FileUtils.getFile(newFileDir, RandomStringUtils.randomAlphanumeric(8) + "-" + fileSuffix);
+        return FileUtils.getFile(newFileDir, FileNameUtils.getRandomName(fileSuffix));
     }
 
     /**

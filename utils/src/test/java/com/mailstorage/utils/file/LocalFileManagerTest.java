@@ -1,4 +1,4 @@
-package com.mailstorage.utils.local;
+package com.mailstorage.utils.file;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
