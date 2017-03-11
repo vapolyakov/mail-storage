@@ -1,5 +1,7 @@
 package com.mailstorage.web.handlers;
 
+import com.mailstorage.data.raw.RawFileInfo;
+import com.mailstorage.data.raw.RawFileStorage;
 import com.mailstorage.utils.file.IncomingFileSaver;
 import com.mailstorage.web.artifacts.LengthExtractor;
 import com.mailstorage.web.response.OkResponse;
@@ -29,6 +31,9 @@ public class UploadMailHandler {
     @Autowired
     private IncomingFileSaver incomingFileSaver;
 
+    @Autowired
+    private RawFileStorage<String> rawFileStorage;
+
     @POST
     @Path("/upload")
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
@@ -41,7 +46,8 @@ public class UploadMailHandler {
         logger.info("Handling /upload request for user_id={} and filename={}", userId, fileName);
 
         File saved = incomingFileSaver.saveIncomingFileLocally(userId, fileName, input);
-        logger.info("File successfully received and saved locally in {}", saved.getAbsoluteFile());
+
+        rawFileStorage.save(new RawFileInfo(userId, fileName, saved));
 
         if (lengthExtractor.isTooBig(saved)) {
             throw new RuntimeException("File is too big and won't be saved");

@@ -2,6 +2,8 @@ package com.mailstorage.utils.file;
 
 import com.mailstorage.utils.timestamp.CurrentDateProvider;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -11,6 +13,8 @@ import java.io.*;
  * Saves incoming data from specific user in files given by LocalFileManager and bundled by current date.
  */
 public class IncomingFileSaver {
+    private static final Logger logger = LoggerFactory.getLogger(IncomingFileSaver.class);
+
     private LocalFileManager localFileManager;
 
     public IncomingFileSaver(LocalFileManager localFileManager) {
@@ -31,6 +35,7 @@ public class IncomingFileSaver {
         File saved = localFileManager.getFileUploadTo(getFolderPrefix(userId, currentDate), fileName);
         OutputStream output = new FileOutputStream(saved);
         IOUtils.copy(input, output);
+        logger.info("File successfully received and saved locally in {}", saved.getAbsoluteFile());
         return saved;
     }
 

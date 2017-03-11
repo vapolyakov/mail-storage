@@ -40,6 +40,7 @@ public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
                 OutputStream output = hdfs.create(constructPathFromRelative(id))
         ) {
             IOUtils.copy(input, output);
+            logger.info("Uploading finished successfully");
         } catch (Exception e) {
             logger.error("Upload to hdfs failed", e);
             throw new RuntimeException(e);
@@ -54,6 +55,7 @@ public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
                 OutputStream output = new FileOutputStream(destination)
         ) {
             IOUtils.copy(input, output);
+            logger.info("Downloading finished successfully");
         } catch (Exception e) {
             logger.error("Download from hdfs failed", e);
             throw new RuntimeException(e);
