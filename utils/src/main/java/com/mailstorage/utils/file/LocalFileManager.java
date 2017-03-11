@@ -1,7 +1,6 @@
 package com.mailstorage.utils.file;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import java.io.File;
 import java.util.function.Consumer;

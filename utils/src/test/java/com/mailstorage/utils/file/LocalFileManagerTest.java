@@ -9,14 +9,14 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
+import static com.mailstorage.utils.UtilsTestData.FILE_NAME;
+import static com.mailstorage.utils.UtilsTestData.META_PATH;
+import static com.mailstorage.utils.UtilsTestData.TEST_FOLDER;
+
 /**
  * @author metal
  */
 public class LocalFileManagerTest {
-    private static final String TEST_FOLDER = "testfolder";
-    private static final String META_PATH = "2017-03-11/metal";
-    private static final String FILE_NAME = "received.eml";
-
     private LocalFileManager fileManager;
 
     @Before
