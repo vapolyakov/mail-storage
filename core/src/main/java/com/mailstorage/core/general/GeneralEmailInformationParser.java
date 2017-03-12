@@ -22,14 +22,19 @@ import java.util.stream.Collectors;
 public class GeneralEmailInformationParser {
     private static final Logger logger = LoggerFactory.getLogger(GeneralEmailInformationParser.class);
 
-    public static Mail parse(RawFileInfo rawEmailFileInfo, String hdfsId) throws Exception {
+    public static Mail parse(RawFileInfo rawEmailFileInfo, String hdfsId) {
         logger.info("Parsing email from local file");
 
-        MimeMessageParser parser = getMimeMessageParser(rawEmailFileInfo);
-        Mail result = getMail(rawEmailFileInfo, hdfsId, parser);
+        try {
+            MimeMessageParser parser = getMimeMessageParser(rawEmailFileInfo);
+            Mail result = getMail(rawEmailFileInfo, hdfsId, parser);
 
-        logger.info("Email successfully parsed");
-        return result;
+            logger.info("Email successfully parsed");
+            return result;
+        } catch (Exception e) {
+            logger.info("Email parsing failed", e);
+            throw new RuntimeException(e);
+        }
     }
 
     private static Mail getMail(RawFileInfo rawEmailFileInfo, String hdfsId, MimeMessageParser parser) throws Exception {

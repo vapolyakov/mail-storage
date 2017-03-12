@@ -1,5 +1,7 @@
 package com.mailstorage.web;
 
+import com.mailstorage.core.CoreConfiguration;
+import com.mailstorage.data.mail.dao.DataStorageHBaseDaoConfiguration;
 import com.mailstorage.data.raw.HdfsConfiguration;
 import com.mailstorage.utils.file.IncomingFileSaver;
 import com.mailstorage.utils.file.LocalFileManager;
@@ -15,7 +17,9 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @ComponentScan("com.behavox.web.handlers")
 @PropertySource("classpath:web-service.properties")
 @Import({
-        HdfsConfiguration.class
+        HdfsConfiguration.class,
+        DataStorageHBaseDaoConfiguration.class,
+        CoreConfiguration.class
 })
 public class MailStorageConfiguration {
     @Bean
