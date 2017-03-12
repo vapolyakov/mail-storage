@@ -55,8 +55,8 @@ public class CompoundDaoTest {
     }
 
     private static Mail createMail(long row) {
-        Map<String, Integer> attachments = new HashMap<>();
-        attachments.put("attach1.txt", 7456);
+        Map<String, String> attachments = new HashMap<>();
+        attachments.put("attach1.txt", "application/json");
 
 
         return new Mail(row, "123456", "my_email.eml", "hdfs_id1",

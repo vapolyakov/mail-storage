@@ -15,6 +15,11 @@
     <dependencies>
         <dependency>
             <groupId>com.mail-storage</groupId>
+            <artifactId>data-storage</artifactId>
+            <version>${parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mail-storage</groupId>
             <artifactId>utils</artifactId>
             <version>${parent.version}</version>
         </dependency>
@@ -36,6 +41,10 @@
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>log4j</groupId>
@@ -52,6 +61,12 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jul-to-slf4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

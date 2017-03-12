@@ -1,0 +1,31 @@
+MIME-Version: 1.0
+Received: by 10.103.69.198 with HTTP; Sun, 12 Mar 2017 08:26:29 -0700 (PDT)
+Date: Sun, 12 Mar 2017 18:26:29 +0300
+Delivered-To: olol@ololol.mail.mail
+Subject: test subject
+From: Orin Dorin <asdasd@testmail.mail>
+To: Olo Oloev <olol@ololol.mail.mail>
+Content-Type: multipart/mixed; boundary=001a114ca0180619f1054a8a3808
+
+--001a114ca0180619f1054a8a3808
+Content-Type: multipart/alternative; boundary=001a114ca0180619e9054a8a3806
+
+--001a114ca0180619e9054a8a3806
+Content-Type: text/plain; charset=UTF-8
+
+test message
+
+--001a114ca0180619e9054a8a3806
+Content-Type: text/html; charset=UTF-8
+
+<div dir="ltr">test message</div>
+
+--001a114ca0180619e9054a8a3806--
+--001a114ca0180619f1054a8a3808
+Content-Type: text/plain; charset=US-ASCII; name="asd.txt"
+Content-Disposition: attachment; filename="asd.txt"
+Content-Transfer-Encoding: base64
+X-Attachment-Id: f_j06u1nfx0
+
+SGVsbG8gV29ybGQ=
+--001a114ca0180619f1054a8a3808--

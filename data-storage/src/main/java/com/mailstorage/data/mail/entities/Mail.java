@@ -45,7 +45,7 @@ public class Mail extends BasePrimaryEntity {
     private String message;
 
     @HBColumn(family = "general", column = "attachments")
-    private Map<String, Integer> attachments;
+    private Map<String, String> attachments;
 
     private List<DataSource> attachmentsData;
     private File emailLocalFile;
@@ -55,7 +55,7 @@ public class Mail extends BasePrimaryEntity {
 
     public Mail(Long timestamp, String uid, String filename, String hdfsId,
             String from, List<String> to, List<String> cc, List<String> bcc,
-            String subject, String message, Map<String, Integer> attachments)
+            String subject, String message, Map<String, String> attachments)
     {
         this.timestamp = timestamp;
         this.uid = uid;
@@ -126,7 +126,7 @@ public class Mail extends BasePrimaryEntity {
         return message;
     }
 
-    public Map<String, Integer> getAttachments() {
+    public Map<String, String> getAttachments() {
         return attachments;
     }
 
