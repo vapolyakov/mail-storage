@@ -13,12 +13,12 @@ Content-Type: multipart/alternative; boundary=001a114ca0180619e9054a8a3806
 --001a114ca0180619e9054a8a3806
 Content-Type: text/plain; charset=UTF-8
 
-test message
+test message with ORCL
 
 --001a114ca0180619e9054a8a3806
 Content-Type: text/html; charset=UTF-8
 
-<div dir="ltr">test message</div>
+<div dir="ltr">test message with ORCL</div>
 
 --001a114ca0180619e9054a8a3806--
 --001a114ca0180619f1054a8a3808

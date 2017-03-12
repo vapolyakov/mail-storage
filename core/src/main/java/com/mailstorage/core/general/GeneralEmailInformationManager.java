@@ -19,14 +19,14 @@ public class GeneralEmailInformationManager {
     }
 
     public Mail extractAndSaveGeneralInfo(RawFileInfo rawEmailFileInfo, String hdfsId) {
-        logger.info("Starting to extract general info about email {}", rawEmailFileInfo.getData().getAbsolutePath());
+        logger.info("Starting to extract email general info for {}", rawEmailFileInfo.getData().getAbsolutePath());
         try {
             Mail result = GeneralEmailInformationParser.parse(rawEmailFileInfo, hdfsId);
             mailDao.persist(result);
-            logger.info("General email info successfully persisted with id {}", result.getTimestamp());
+            logger.info("Email info successfully persisted with id {}", result.getTimestamp());
             return result;
         } catch (Exception e) {
-            logger.error("Extracting and saving general info failed", e);
+            logger.error("Operation failed", e);
             throw new RuntimeException(e);
         }
     }
