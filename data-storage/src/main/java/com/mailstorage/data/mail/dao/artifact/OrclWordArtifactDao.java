@@ -1,7 +1,7 @@
-package com.mailstorage.data.mail.dao;
+package com.mailstorage.data.mail.dao.artifact;
 
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
-import com.mailstorage.data.mail.entities.OrclWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import org.apache.hadoop.conf.Configuration;
 
 import java.io.IOException;

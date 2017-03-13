@@ -1,26 +1,27 @@
-package com.mailstorage.data.mail.entities;
+package com.mailstorage.data.mail.entities.artifact;
 
 import com.flipkart.hbaseobjectmapper.HBColumn;
 import com.flipkart.hbaseobjectmapper.HBRowKey;
 import com.flipkart.hbaseobjectmapper.HBTable;
+import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 
 /**
  * @author metal
  */
 @HBTable("mail")
-public class OrclWordArtifact extends BasePrimaryEntity {
+public class AttachmentCountArtifact extends BasePrimaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "artifact", column = "orcl_pos")
-    private Integer pos;
+    @HBColumn(family = "artifact", column = "att_count")
+    private Integer count;
 
-    public OrclWordArtifact() {
+    public AttachmentCountArtifact() {
     }
 
-    public OrclWordArtifact(Long timestamp, Integer pos) {
+    public AttachmentCountArtifact(Long timestamp, Integer count) {
         this.timestamp = timestamp;
-        this.pos = pos;
+        this.count = count;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class OrclWordArtifact extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
-    public Integer getPos() {
-        return pos;
+    public Integer getCount() {
+        return count;
     }
 }

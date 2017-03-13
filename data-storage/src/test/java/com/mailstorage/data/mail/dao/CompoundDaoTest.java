@@ -1,7 +1,8 @@
 package com.mailstorage.data.mail.dao;
 
+import com.mailstorage.data.mail.dao.artifact.OrclWordArtifactDao;
 import com.mailstorage.data.mail.entities.Mail;
-import com.mailstorage.data.mail.entities.OrclWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
