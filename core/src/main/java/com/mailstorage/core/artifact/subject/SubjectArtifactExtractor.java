@@ -38,7 +38,8 @@ public class SubjectArtifactExtractor implements BaseArtifactExtractor<SubjectAr
 
     private List<String> searchWords(String text, List<String> words) {
         if (StringUtils.isNotEmpty(text)) {
-            return words.stream().filter(text::contains).collect(Collectors.toList());
+            List<String> result = words.stream().filter(text::contains).collect(Collectors.toList());
+            return result.isEmpty() ? null : result;
         }
         return null;
     }
