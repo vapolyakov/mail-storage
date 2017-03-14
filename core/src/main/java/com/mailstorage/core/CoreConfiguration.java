@@ -1,9 +1,10 @@
 package com.mailstorage.core;
 
+import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.core.artifact.ArtifactExtractorConfiguration;
 import com.mailstorage.core.artifact.CommonArtifactManager;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
-import com.mailstorage.data.mail.dao.MailDao;
+import com.mailstorage.data.mail.entities.Mail;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +41,7 @@ public class CoreConfiguration {
     }
 
     @Bean
-    public GeneralEmailInformationManager generalEmailInformationManager(MailDao mailDao) {
+    public GeneralEmailInformationManager generalEmailInformationManager(AbstractHBDAO<Long, Mail> mailDao) {
         return new GeneralEmailInformationManager(mailDao);
     }
 

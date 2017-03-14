@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author metal
  */
-public abstract class BaseArtifactManager<T extends BasePrimaryEntity> {
+public class BaseArtifactManager<T extends BasePrimaryEntity> {
     private static final Logger logger = LoggerFactory.getLogger(BaseArtifactManager.class);
 
     protected BaseArtifactExtractor<T> extractor;

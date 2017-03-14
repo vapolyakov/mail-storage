@@ -1,6 +1,6 @@
 package com.mailstorage.data.mail.dao;
 
-import com.mailstorage.data.mail.dao.artifact.OrclWordArtifactDao;
+import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import org.junit.Assert;
@@ -27,10 +27,10 @@ public class CompoundDaoTest {
     private static final Integer POS = 399;
 
     @Autowired
-    private MailDao mailDao;
+    private AbstractHBDAO<Long, Mail> mailDao;
 
     @Autowired
-    private OrclWordArtifactDao artifactDao;
+    private AbstractHBDAO<Long, OrclWordArtifact> artifactDao;
 
     private long rowId;
     private Mail expectedMail;

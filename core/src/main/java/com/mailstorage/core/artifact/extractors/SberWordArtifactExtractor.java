@@ -1,6 +1,5 @@
-package com.mailstorage.core.artifact.sber;
+package com.mailstorage.core.artifact.extractors;
 
-import com.mailstorage.core.artifact.word.WordArtifactExtractor;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
 

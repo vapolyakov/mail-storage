@@ -1,10 +1,12 @@
 package com.mailstorage.data.mail.dao;
 
+import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.data.mail.DataStorageHBaseConfiguration;
-import com.mailstorage.data.mail.dao.artifact.AttachmentCountArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.OrclWordArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.SberWordArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.SubjectArtifactDao;
+import com.mailstorage.data.mail.entities.Mail;
+import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
+import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
 import org.apache.hadoop.conf.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -20,27 +22,27 @@ import java.io.IOException;
 })
 public class DataStorageHBaseDaoConfiguration {
     @Bean
-    public MailDao mailDao(Configuration conf) throws IOException {
-        return new MailDao(conf);
+    public AbstractHBDAO<Long, Mail> mailDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, Mail>(conf) {};
     }
 
     @Bean
-    public OrclWordArtifactDao orclWordArtifactDao(Configuration conf) throws IOException {
-        return new OrclWordArtifactDao(conf);
+    public AbstractHBDAO<Long, OrclWordArtifact> orclWordArtifactDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, OrclWordArtifact>(conf) {};
     }
 
     @Bean
-    public SberWordArtifactDao sberWordArtifactDao(Configuration conf) throws IOException {
-        return new SberWordArtifactDao(conf);
+    public AbstractHBDAO<Long, SberWordArtifact> sberWordArtifactDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, SberWordArtifact>(conf) {};
     }
 
     @Bean
-    public AttachmentCountArtifactDao attachmentCountArtifactDao(Configuration conf) throws IOException {
-        return new AttachmentCountArtifactDao(conf);
+    public AbstractHBDAO<Long, AttachmentCountArtifact> attachmentCountArtifactDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, AttachmentCountArtifact>(conf) {};
     }
 
     @Bean
-    public SubjectArtifactDao subjectArtifactDao(Configuration conf) throws IOException {
-        return new SubjectArtifactDao(conf);
+    public AbstractHBDAO<Long, SubjectArtifact> subjectArtifactDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, SubjectArtifact>(conf) {};
     }
 }

@@ -1,4 +1,4 @@
-package com.mailstorage.core.artifact.word;
+package com.mailstorage.core.artifact.extractors;
 
 import com.mailstorage.core.artifact.BaseArtifactExtractor;
 import com.mailstorage.data.mail.entities.BasePrimaryEntity;

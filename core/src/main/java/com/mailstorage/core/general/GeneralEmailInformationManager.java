@@ -1,6 +1,6 @@
 package com.mailstorage.core.general;
 
-import com.mailstorage.data.mail.dao.MailDao;
+import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.raw.RawFileInfo;
 import org.slf4j.Logger;
@@ -12,9 +12,9 @@ import org.slf4j.LoggerFactory;
 public class GeneralEmailInformationManager {
     private static final Logger logger = LoggerFactory.getLogger(GeneralEmailInformationManager.class);
 
-    private final MailDao mailDao;
+    private final AbstractHBDAO<Long, Mail> mailDao;
 
-    public GeneralEmailInformationManager(MailDao mailDao) {
+    public GeneralEmailInformationManager(AbstractHBDAO<Long, Mail> mailDao) {
         this.mailDao = mailDao;
     }
 

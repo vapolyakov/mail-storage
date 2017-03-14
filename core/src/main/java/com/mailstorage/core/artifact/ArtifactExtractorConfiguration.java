@@ -1,17 +1,14 @@
 package com.mailstorage.core.artifact;
 
-import com.mailstorage.core.artifact.attachement.AttachmentCountArtifactExtractor;
-import com.mailstorage.core.artifact.attachement.AttachmentCountArtifactManager;
-import com.mailstorage.core.artifact.orcl.OrclWordArtifactExtractor;
-import com.mailstorage.core.artifact.orcl.OrclWordArtifactManager;
-import com.mailstorage.core.artifact.sber.SberWordArtifactExtractor;
-import com.mailstorage.core.artifact.sber.SberWordArtifactManager;
-import com.mailstorage.core.artifact.subject.SubjectArtifactExtractor;
-import com.mailstorage.core.artifact.subject.SubjectArtifactManager;
-import com.mailstorage.data.mail.dao.artifact.AttachmentCountArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.OrclWordArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.SberWordArtifactDao;
-import com.mailstorage.data.mail.dao.artifact.SubjectArtifactDao;
+import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
+import com.mailstorage.core.artifact.extractors.AttachmentCountArtifactExtractor;
+import com.mailstorage.core.artifact.extractors.OrclWordArtifactExtractor;
+import com.mailstorage.core.artifact.extractors.SberWordArtifactExtractor;
+import com.mailstorage.core.artifact.extractors.SubjectArtifactExtractor;
+import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
+import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
+import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,28 +21,28 @@ import java.util.List;
 @Configuration
 public class ArtifactExtractorConfiguration {
     @Bean
-    public OrclWordArtifactManager orclWordArtifactManager(OrclWordArtifactDao dao) {
-        return new OrclWordArtifactManager(new OrclWordArtifactExtractor(), dao);
+    public BaseArtifactManager<OrclWordArtifact> orclWordArtifactManager(AbstractHBDAO<Long, OrclWordArtifact> dao) {
+        return new BaseArtifactManager<>(new OrclWordArtifactExtractor(), dao);
     }
 
     @Bean
-    public SberWordArtifactManager sberWordArtifactManager(SberWordArtifactDao dao) {
-        return new SberWordArtifactManager(new SberWordArtifactExtractor(), dao);
+    public BaseArtifactManager<SberWordArtifact> sberWordArtifactManager(AbstractHBDAO<Long, SberWordArtifact> dao) {
+        return new BaseArtifactManager<>(new SberWordArtifactExtractor(), dao);
     }
 
     @Bean
-    public AttachmentCountArtifactManager attachmentCountArtifactManage(AttachmentCountArtifactDao dao) {
-        return new AttachmentCountArtifactManager(new AttachmentCountArtifactExtractor(), dao);
+    public BaseArtifactManager<AttachmentCountArtifact> attachmentCountArtifactManage(AbstractHBDAO<Long, AttachmentCountArtifact> dao) {
+        return new BaseArtifactManager<>(new AttachmentCountArtifactExtractor(), dao);
     }
 
     @Bean
-    public SubjectArtifactManager subjectArtifactManager(SubjectArtifactDao dao,
+    public BaseArtifactManager<SubjectArtifact> subjectArtifactManager(AbstractHBDAO<Long, SubjectArtifact> dao,
             @Value("${mail.storage.artifact.subject.suspicious.words}")
             String suspiciousWords,
             @Value("${mail.storage.artifact.subject.fraud.emails}")
             String fraudEmails)
     {
-        return new SubjectArtifactManager(new SubjectArtifactExtractor(fraudEmails, suspiciousWords), dao);
+        return new BaseArtifactManager<>(new SubjectArtifactExtractor(fraudEmails, suspiciousWords), dao);
     }
 
     @Bean
