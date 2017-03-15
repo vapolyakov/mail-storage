@@ -42,6 +42,7 @@ public class GeneralEmailInformationParser {
                 Instant.now().getMillis(),
                 rawEmailFileInfo.getUserId(), rawEmailFileInfo.getInitialFileName(), hdfsId,
                 parser.getFrom(),
+                parser.getMimeMessage().getSentDate().toString(),
                 toStringList(parser.getTo()),
                 toStringList(parser.getCc()),
                 toStringList(parser.getBcc()),

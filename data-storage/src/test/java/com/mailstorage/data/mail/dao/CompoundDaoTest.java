@@ -59,9 +59,8 @@ public class CompoundDaoTest {
         Map<String, String> attachments = new HashMap<>();
         attachments.put("attach1.txt", "application/json");
 
-
         return new Mail(row, "123456", "my_email.eml", "hdfs_id1",
-                "from_metal",
+                "from_metal", "Wed Mar 15 23:25:12 MSK 2017",
                 Arrays.asList("gek", "pek"), new ArrayList<>(), new ArrayList<>(),
                 "best subject", MESSAGE, attachments);
     }

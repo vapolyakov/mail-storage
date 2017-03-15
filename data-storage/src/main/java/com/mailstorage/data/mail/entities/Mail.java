@@ -29,6 +29,9 @@ public class Mail extends BasePrimaryEntity {
     @HBColumn(family = "general", column = "from")
     private String from;
 
+    @HBColumn(family = "general", column = "sent_date")
+    private String sentDate;
+
     @HBColumn(family = "general", column = "to")
     private List<String> to;
 
@@ -54,7 +57,7 @@ public class Mail extends BasePrimaryEntity {
     }
 
     public Mail(Long timestamp, String uid, String filename, String hdfsId,
-            String from, List<String> to, List<String> cc, List<String> bcc,
+            String from, String sentDate, List<String> to, List<String> cc, List<String> bcc,
             String subject, String message, Map<String, String> attachments)
     {
         this.timestamp = timestamp;
@@ -62,6 +65,7 @@ public class Mail extends BasePrimaryEntity {
         this.filename = filename;
         this.hdfsId = hdfsId;
         this.from = from;
+        this.sentDate = sentDate;
         this.to = to;
         this.cc = cc;
         this.bcc = bcc;
@@ -104,6 +108,10 @@ public class Mail extends BasePrimaryEntity {
 
     public String getFrom() {
         return from;
+    }
+
+    public String getSentDate() {
+        return sentDate;
     }
 
     public List<String> getTo() {
