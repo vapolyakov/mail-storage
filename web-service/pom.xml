@@ -16,17 +16,17 @@
         <dependency>
             <groupId>com.mail-storage</groupId>
             <artifactId>core</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.mail-storage</groupId>
             <artifactId>data-storage</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>com.mail-storage</groupId>
             <artifactId>utils</artifactId>
-            <version>${parent.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
 
         <dependency>
