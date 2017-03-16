@@ -64,9 +64,8 @@ public class Stages {
         artifactExtractorExecutor.submit(() -> {
             try {
                 PrimaryEntitiesRegistry registry = commonArtifactManager.calculateEntities(mail);
-                registry.registerPrimaryEntity(mail);
                 if (continueProcessing) {
-                    extractPrimaryFeatures(registry, mail.getTimestamp() + ":" + mail.getHdfsId());
+                    extractPrimaryFeatures(registry, mail);
                 }
             } catch (Exception e) {
                 logger.error("Artifacts extracting failed", e);
@@ -74,9 +73,11 @@ public class Stages {
         });
     }
 
-    public void extractPrimaryFeatures(PrimaryEntitiesRegistry registry, String id) {
+    public void extractPrimaryFeatures(PrimaryEntitiesRegistry registry, Mail mail) {
+        final String id = mail.getTimestamp() + ":" + mail.getHdfsId();
         logger.info("Scheduling extract features task for mail {}", id);
 
+        registry.registerPrimaryEntity(mail);
         featureExtractorExecutor.submit(() -> {
             try {
                 commonFeatureManager.calculateEntities(registry);
