@@ -1,7 +1,8 @@
 package com.mailstorage.core;
 
-import com.mailstorage.core.artifact.CommonArtifactManager;
+import com.mailstorage.core.artifact.BaseArtifactManager;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
+import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.raw.RawFileInfo;
 import org.slf4j.Logger;
@@ -19,12 +20,12 @@ public class Stages {
     private GeneralEmailInformationManager generalInformationManager;
 
     private ThreadPoolExecutor artifactExtractorExecutor;
-    private CommonArtifactManager commonArtifactManager;
+    private CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager;
 
     public Stages(ThreadPoolExecutor generalInformationExtractorExecutor,
             GeneralEmailInformationManager generalInformationManager,
             ThreadPoolExecutor artifactExtractorExecutor,
-            CommonArtifactManager commonArtifactManager)
+            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager)
     {
         this.generalInformationExtractorExecutor = generalInformationExtractorExecutor;
         this.generalInformationManager = generalInformationManager;
@@ -48,7 +49,7 @@ public class Stages {
         logger.info("Scheduling extract artifacts task for mail {}", mail.getHdfsId());
 
         artifactExtractorExecutor.submit(() -> {
-            commonArtifactManager.calculateArtifacts(mail);
+            commonArtifactManager.calculateEntities(mail);
             if (continueProcessing) {
                 logger.info("Continue processing mail {}/{} and schedule feature extraction",
                         mail.getTimestamp(), mail.getHdfsId());

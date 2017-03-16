@@ -7,6 +7,10 @@ import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
+import com.mailstorage.data.mail.entities.feature.CompositeFeature;
+import com.mailstorage.data.mail.entities.feature.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.SberRelevanceFeature;
 import org.apache.hadoop.conf.Configuration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -44,5 +48,25 @@ public class DataStorageHBaseDaoConfiguration {
     @Bean
     public AbstractHBDAO<Long, SubjectArtifact> subjectArtifactDao(Configuration conf) throws IOException {
         return new AbstractHBDAO<Long, SubjectArtifact>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, CompositeFeature> compositeFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, CompositeFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, LengthFeature> lengthFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, LengthFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, OrclRelevanceFeature> orclRelevanceDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, OrclRelevanceFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, SberRelevanceFeature> sberRelevanceDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, SberRelevanceFeature>(conf) {};
     }
 }

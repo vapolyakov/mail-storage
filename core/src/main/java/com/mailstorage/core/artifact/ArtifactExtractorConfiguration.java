@@ -1,10 +1,12 @@
 package com.mailstorage.core.artifact;
 
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
+import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.core.artifact.extractors.AttachmentCountArtifactExtractor;
 import com.mailstorage.core.artifact.extractors.OrclWordArtifactExtractor;
 import com.mailstorage.core.artifact.extractors.SberWordArtifactExtractor;
 import com.mailstorage.core.artifact.extractors.SubjectArtifactExtractor;
+import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
@@ -46,7 +48,7 @@ public class ArtifactExtractorConfiguration {
     }
 
     @Bean
-    public CommonArtifactManager commonArtifactManager(List<BaseArtifactManager> managers) {
-        return new CommonArtifactManager(managers);
+    public CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager(List<BaseArtifactManager> managers) {
+        return new CommonPrimaryEntityManager<>(managers);
     }
 }

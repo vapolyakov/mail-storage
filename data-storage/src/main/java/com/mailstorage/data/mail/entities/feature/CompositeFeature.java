@@ -1,33 +1,27 @@
-package com.mailstorage.data.mail.entities.artifact;
+package com.mailstorage.data.mail.entities.feature;
 
 import com.flipkart.hbaseobjectmapper.HBColumn;
 import com.flipkart.hbaseobjectmapper.HBRowKey;
 import com.flipkart.hbaseobjectmapper.HBTable;
 import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 
-import java.util.List;
-
 /**
  * @author metal
  */
 @HBTable("mail")
-public class SubjectArtifact extends BasePrimaryEntity {
+public class CompositeFeature extends BasePrimaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "artifact", column = "subject_has")
-    private List<String> suspiciousWords;
+    @HBColumn(family = "feature", column = "fraud")
+    private Double fraud;
 
-    @HBColumn(family = "artifact", column = "fraud_to")
-    private Boolean fraudTo;
-
-    public SubjectArtifact() {
+    public CompositeFeature() {
     }
 
-    public SubjectArtifact(Long timestamp, List<String> suspiciousWords, Boolean fraudTo) {
+    public CompositeFeature(Long timestamp, Double fraud) {
         this.timestamp = timestamp;
-        this.suspiciousWords = suspiciousWords;
-        this.fraudTo = fraudTo;
+        this.fraud = fraud;
     }
 
     @Override
@@ -50,11 +44,7 @@ public class SubjectArtifact extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
-    public List<String> getSuspiciousWords() {
-        return suspiciousWords;
-    }
-
-    public Boolean isFraudTo() {
-        return fraudTo;
+    public Double getFraud() {
+        return fraud;
     }
 }

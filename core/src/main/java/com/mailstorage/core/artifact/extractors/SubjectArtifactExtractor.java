@@ -1,6 +1,6 @@
 package com.mailstorage.core.artifact.extractors;
 
-import com.mailstorage.core.artifact.BaseArtifactExtractor;
+import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
 import org.apache.commons.lang3.StringUtils;
@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * @author metal
  */
-public class SubjectArtifactExtractor implements BaseArtifactExtractor<SubjectArtifact> {
+public class SubjectArtifactExtractor implements PrimaryEntityExtractor<Mail, SubjectArtifact> {
     private final List<String> fraudEmails;
     private final List<String> suspiciousWords;
 

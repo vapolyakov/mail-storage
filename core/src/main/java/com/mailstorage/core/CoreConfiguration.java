@@ -2,8 +2,10 @@ package com.mailstorage.core;
 
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.core.artifact.ArtifactExtractorConfiguration;
-import com.mailstorage.core.artifact.CommonArtifactManager;
+import com.mailstorage.core.artifact.BaseArtifactManager;
+import com.mailstorage.core.feature.primary.FeatureExtractorConfiguration;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
+import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.data.mail.entities.Mail;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +23,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 @Configuration
 @PropertySource("classpath:core.properties")
 @Import({
-        ArtifactExtractorConfiguration.class
+        ArtifactExtractorConfiguration.class,
+        FeatureExtractorConfiguration.class
 })
 public class CoreConfiguration {
     @Bean
@@ -52,7 +55,8 @@ public class CoreConfiguration {
             GeneralEmailInformationManager generalEmailInformationManager,
             @Qualifier("artifactExtractorExecutor")
             ThreadPoolExecutor artifactExtractorExecutor,
-            CommonArtifactManager commonArtifactManager)
+            @Qualifier("commonArtifactManager")
+            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager)
     {
         return new Stages(generalInformationExtractorExecutor, generalEmailInformationManager,
                 artifactExtractorExecutor, commonArtifactManager);

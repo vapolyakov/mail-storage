@@ -1,13 +1,13 @@
 package com.mailstorage.core.artifact.extractors;
 
-import com.mailstorage.core.artifact.BaseArtifactExtractor;
+import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 import com.mailstorage.data.mail.entities.Mail;
 
 /**
  * @author metal
  */
-public abstract class WordArtifactExtractor<T extends BasePrimaryEntity> implements BaseArtifactExtractor<T> {
+public abstract class WordArtifactExtractor<T extends BasePrimaryEntity> implements PrimaryEntityExtractor<Mail, T> {
     private final String word;
 
     public WordArtifactExtractor(String word) {
