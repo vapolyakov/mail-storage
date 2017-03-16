@@ -1,8 +1,10 @@
 package com.mailstorage.core;
 
 import com.mailstorage.core.artifact.BaseArtifactManager;
+import com.mailstorage.core.feature.primary.BaseFeatureManager;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
 import com.mailstorage.core.primary.CommonPrimaryEntityManager;
+import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.raw.RawFileInfo;
 import org.slf4j.Logger;
@@ -22,15 +24,22 @@ public class Stages {
     private ThreadPoolExecutor artifactExtractorExecutor;
     private CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager;
 
+    private ThreadPoolExecutor featureExtractorExecutor;
+    private CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager;
+
     public Stages(ThreadPoolExecutor generalInformationExtractorExecutor,
             GeneralEmailInformationManager generalInformationManager,
             ThreadPoolExecutor artifactExtractorExecutor,
-            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager)
+            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager,
+            ThreadPoolExecutor featureExtractorExecutor,
+            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager)
     {
         this.generalInformationExtractorExecutor = generalInformationExtractorExecutor;
         this.generalInformationManager = generalInformationManager;
         this.artifactExtractorExecutor = artifactExtractorExecutor;
         this.commonArtifactManager = commonArtifactManager;
+        this.featureExtractorExecutor = featureExtractorExecutor;
+        this.commonFeatureManager = commonFeatureManager;
     }
 
     public void extractGeneralInfo(RawFileInfo rawEmailFileInfo, String hdfsId, boolean continueProcessing) {
@@ -49,11 +58,20 @@ public class Stages {
         logger.info("Scheduling extract artifacts task for mail {}", mail.getHdfsId());
 
         artifactExtractorExecutor.submit(() -> {
-            commonArtifactManager.calculateEntities(mail);
+            PrimaryEntitiesRegistry registry = commonArtifactManager.calculateEntities(mail);
+            registry.registerPrimaryEntity(mail);
             if (continueProcessing) {
-                logger.info("Continue processing mail {}/{} and schedule feature extraction",
-                        mail.getTimestamp(), mail.getHdfsId());
+                extractPrimaryFeatures(registry, mail.getTimestamp() + ":" + mail.getHdfsId());
             }
+        });
+    }
+
+    public void extractPrimaryFeatures(PrimaryEntitiesRegistry registry, String id) {
+        logger.info("Scheduling extract features task for mail {}", id);
+
+        featureExtractorExecutor.submit(() -> {
+            commonFeatureManager.calculateEntities(registry);
+            logger.info("All processing finished for mail {}", id);
         });
     }
 }

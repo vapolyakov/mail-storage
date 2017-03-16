@@ -26,6 +26,7 @@ public class CompositeFeatureExtractor implements PrimaryEntityExtractor<Primary
         return subjectArtifact != null
                 && orclWordArtifact != null
                 && subjectArtifact.isFraudTo()
+                && subjectArtifact.getSuspiciousWords() != null
                 && !subjectArtifact.getSuspiciousWords().isEmpty();
     }
 }

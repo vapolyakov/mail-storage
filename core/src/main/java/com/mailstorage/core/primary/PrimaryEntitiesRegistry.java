@@ -13,7 +13,9 @@ public class PrimaryEntitiesRegistry {
     private final Map<Class, BasePrimaryEntity> entities = new HashMap<>();
 
     public void registerPrimaryEntity(BasePrimaryEntity entity) {
-        entities.put(entity.getClass(), entity);
+        if (entity != null) {
+            entities.put(entity.getClass(), entity);
+        }
     }
 
     public <T> T get(Class<T> clazz) {

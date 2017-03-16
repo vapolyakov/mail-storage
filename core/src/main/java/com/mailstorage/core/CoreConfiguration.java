@@ -3,9 +3,11 @@ package com.mailstorage.core;
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.core.artifact.ArtifactExtractorConfiguration;
 import com.mailstorage.core.artifact.BaseArtifactManager;
+import com.mailstorage.core.feature.primary.BaseFeatureManager;
 import com.mailstorage.core.feature.primary.FeatureExtractorConfiguration;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
 import com.mailstorage.core.primary.CommonPrimaryEntityManager;
+import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.data.mail.entities.Mail;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -44,6 +46,14 @@ public class CoreConfiguration {
     }
 
     @Bean
+    public ThreadPoolExecutor featureExtractorExecutor(
+            @Value("${mail.storage.feature.extractor.threads}")
+            int threads)
+    {
+        return (ThreadPoolExecutor) Executors.newFixedThreadPool(threads);
+    }
+
+    @Bean
     public GeneralEmailInformationManager generalEmailInformationManager(AbstractHBDAO<Long, Mail> mailDao) {
         return new GeneralEmailInformationManager(mailDao);
     }
@@ -52,13 +62,19 @@ public class CoreConfiguration {
     public Stages stages(
             @Qualifier("generalInformationExtractorExecutor")
             ThreadPoolExecutor generalInformationExtractorExecutor,
-            GeneralEmailInformationManager generalEmailInformationManager,
             @Qualifier("artifactExtractorExecutor")
             ThreadPoolExecutor artifactExtractorExecutor,
+            @Qualifier("featureExtractorExecutor")
+            ThreadPoolExecutor featureExtractorExecutor,
+            GeneralEmailInformationManager generalEmailInformationManager,
             @Qualifier("commonArtifactManager")
-            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager)
+            CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager,
+            @Qualifier("commonFeatureManager")
+            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager)
     {
-        return new Stages(generalInformationExtractorExecutor, generalEmailInformationManager,
-                artifactExtractorExecutor, commonArtifactManager);
+        return new Stages(
+                generalInformationExtractorExecutor, generalEmailInformationManager,
+                artifactExtractorExecutor, commonArtifactManager,
+                featureExtractorExecutor, commonFeatureManager);
     }
 }
