@@ -4,7 +4,6 @@ import com.mailstorage.core.Stages;
 import com.mailstorage.data.raw.RawFileInfo;
 import com.mailstorage.data.raw.RawFileStorage;
 import com.mailstorage.utils.file.IncomingFileSaver;
-import com.mailstorage.web.artifacts.LengthExtractor;
 import com.mailstorage.web.response.OkResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,9 +24,6 @@ import java.io.*;
 @Component
 public class UploadMailHandler {
     private static final Logger logger = LoggerFactory.getLogger(UploadMailHandler.class);
-
-    @Autowired
-    private LengthExtractor lengthExtractor;
 
     @Autowired
     private IncomingFileSaver incomingFileSaver;
@@ -56,9 +52,6 @@ public class UploadMailHandler {
 
         stages.extractGeneralInfo(rawFileInfo, hdfsId, true);
 
-        if (lengthExtractor.isTooBig(saved)) {
-            throw new RuntimeException("File is too big and won't be saved");
-        }
         return Response
                 .ok(new OkResponse())
                 .build();

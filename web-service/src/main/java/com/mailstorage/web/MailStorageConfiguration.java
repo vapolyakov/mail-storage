@@ -5,7 +5,6 @@ import com.mailstorage.data.mail.dao.DataStorageHBaseDaoConfiguration;
 import com.mailstorage.data.raw.HdfsConfiguration;
 import com.mailstorage.utils.file.IncomingFileSaver;
 import com.mailstorage.utils.file.LocalFileManager;
-import com.mailstorage.web.artifacts.LengthExtractor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
@@ -22,10 +21,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
         CoreConfiguration.class
 })
 public class MailStorageConfiguration {
-    @Bean
-    public LengthExtractor lengthExtractor(@Value("${mail.storage.max.file.length}") long maxLength) {
-        return new LengthExtractor(maxLength);
-    }
 
     @Bean
     public LocalFileManager localFileManager(
