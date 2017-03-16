@@ -47,9 +47,13 @@ public class Stages {
                 rawEmailFileInfo.getUserId(), rawEmailFileInfo.getData().getAbsolutePath());
 
         generalInformationExtractorExecutor.submit(() -> {
-            Mail mail = generalInformationManager.extractAndSaveGeneralInfo(rawEmailFileInfo, hdfsId);
-            if (continueProcessing) {
-                extractArtifacts(mail, true);
+            try {
+                Mail mail = generalInformationManager.extractAndSaveGeneralInfo(rawEmailFileInfo, hdfsId);
+                if (continueProcessing) {
+                    extractArtifacts(mail, true);
+                }
+            } catch (Exception e) {
+                logger.error("General info extracting failed", e);
             }
         });
     }
@@ -58,10 +62,14 @@ public class Stages {
         logger.info("Scheduling extract artifacts task for mail {}", mail.getHdfsId());
 
         artifactExtractorExecutor.submit(() -> {
-            PrimaryEntitiesRegistry registry = commonArtifactManager.calculateEntities(mail);
-            registry.registerPrimaryEntity(mail);
-            if (continueProcessing) {
-                extractPrimaryFeatures(registry, mail.getTimestamp() + ":" + mail.getHdfsId());
+            try {
+                PrimaryEntitiesRegistry registry = commonArtifactManager.calculateEntities(mail);
+                registry.registerPrimaryEntity(mail);
+                if (continueProcessing) {
+                    extractPrimaryFeatures(registry, mail.getTimestamp() + ":" + mail.getHdfsId());
+                }
+            } catch (Exception e) {
+                logger.error("Artifacts extracting failed", e);
             }
         });
     }
@@ -70,7 +78,11 @@ public class Stages {
         logger.info("Scheduling extract features task for mail {}", id);
 
         featureExtractorExecutor.submit(() -> {
-            commonFeatureManager.calculateEntities(registry);
+            try {
+                commonFeatureManager.calculateEntities(registry);
+            } catch (Exception e) {
+                logger.error("Feature extracting failed", e);
+            }
             logger.info("All processing finished for mail {}", id);
         });
     }
