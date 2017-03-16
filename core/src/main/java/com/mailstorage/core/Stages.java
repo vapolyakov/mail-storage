@@ -7,6 +7,7 @@ import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.raw.RawFileInfo;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -85,6 +86,11 @@ public class Stages {
                 logger.error("Feature extracting failed", e);
             }
             logger.info("All processing finished for mail {}", id);
+
+            if (mail.getEmailLocalFile() != null) {
+                logger.info("Removing local .eml file {}", mail.getEmailLocalFile());
+                FileUtils.deleteQuietly(mail.getEmailLocalFile());
+            }
         });
     }
 }
