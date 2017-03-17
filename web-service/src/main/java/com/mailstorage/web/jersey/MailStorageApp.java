@@ -5,6 +5,9 @@ import org.glassfish.jersey.server.ServerProperties;
 
 /**
  * @author metal
+ *
+ * Jersey mail storage configuration. Initializes handlers from specific package and
+ * allows to present application exceptions with fixed error response json scheme.
  */
 public class MailStorageApp extends ResourceConfig {
     public MailStorageApp() {

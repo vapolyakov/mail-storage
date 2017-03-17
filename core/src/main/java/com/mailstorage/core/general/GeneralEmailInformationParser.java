@@ -18,10 +18,18 @@ import java.util.stream.Collectors;
 
 /**
  * @author metal
+ *
+ * Parses email local file and extracts available data according to MIME message protocol.
  */
 public class GeneralEmailInformationParser {
     private static final Logger logger = LoggerFactory.getLogger(GeneralEmailInformationParser.class);
 
+    /**
+     * Parses email local file and extracts available data according to MIME message protocol.
+     * @param rawEmailFileInfo raw local email file info
+     * @param hdfsId email file id in HDFS
+     * @return general email information including raw data and file HDFS id
+     */
     public static Mail parse(RawFileInfo rawEmailFileInfo, String hdfsId) {
         logger.info("Parsing email from local file");
 

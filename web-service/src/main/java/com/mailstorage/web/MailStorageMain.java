@@ -13,6 +13,9 @@ import java.util.logging.LogManager;
 
 /**
  * @author metal
+ *
+ * Main class for mail storage application. Starts jetty server listening on 8080 port and accepting .eml files
+ * at /upload path.
  */
 public class MailStorageMain {
     public static void main(String[] args) throws Exception {

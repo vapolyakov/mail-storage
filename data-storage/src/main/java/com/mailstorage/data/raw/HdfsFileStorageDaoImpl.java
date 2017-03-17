@@ -13,6 +13,8 @@ import java.net.URISyntaxException;
 
 /**
  * @author metal
+ *
+ * Storage for raw incoming files without any meta data based on HDFS.
  */
 public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
     private static final Logger logger = LoggerFactory.getLogger(HdfsFileStorageDaoImpl.class);
@@ -21,6 +23,13 @@ public class HdfsFileStorageDaoImpl implements RawFileStorageDao<String> {
     private final Path root;
     private final String hdfsUri;
 
+    /**
+     * Creates new instance of HdfsFileStorageDao.
+     * @param hdfsUri running HDFS uri
+     * @param rootPath root folder in HDFS to work with
+     * @throws URISyntaxException if HDFS uri is incorrect
+     * @throws IOException if i/o error occurs while connecting to HDFS
+     */
     public HdfsFileStorageDaoImpl(String hdfsUri, String rootPath) throws URISyntaxException, IOException {
         Configuration configuration = new Configuration();
         this.hdfs = FileSystem.get(new URI(hdfsUri), configuration);

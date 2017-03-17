@@ -10,6 +10,9 @@ import javax.ws.rs.ext.Provider;
 
 /**
  * @author metal
+ *
+ * Catches all exceptions and wraps it in 500 internal server error response
+ * that matches general error response json scheme.
  */
 @Provider
 public class GenericExceptionMapper implements ExceptionMapper<Throwable> {

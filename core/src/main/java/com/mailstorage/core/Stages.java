@@ -15,6 +15,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author metal
+ *
+ * Main email processing class. Allows to extract general info from raw files, schedule artifact and feature extraction
+ * for specific mails in a single processing chain or separately.
  */
 public class Stages {
     private static final Logger logger = LoggerFactory.getLogger(Stages.class);
@@ -43,6 +46,12 @@ public class Stages {
         this.commonFeatureManager = commonFeatureManager;
     }
 
+    /**
+     * Schedules general info extraction and saving for specific raw file that is already uploaded in HDFS.
+     * @param rawEmailFileInfo raw info about file to process
+     * @param hdfsId file id in HDFS
+     * @param continueProcessing continue extracting some other data or execute this stage separately
+     */
     public void extractGeneralInfo(RawFileInfo rawEmailFileInfo, String hdfsId, boolean continueProcessing) {
         logger.info("Scheduling extract general info task for file {}:{}",
                 rawEmailFileInfo.getUserId(), rawEmailFileInfo.getData().getAbsolutePath());
@@ -59,6 +68,11 @@ public class Stages {
         });
     }
 
+    /**
+     * Schedules artifact extraction and saving for specific email.
+     * @param mail extracted general info about email (with ot without actual local email file)
+     * @param continueProcessing continue extracting some other data or execute this stage separately
+     */
     public void extractArtifacts(Mail mail, boolean continueProcessing) {
         logger.info("Scheduling extract artifacts task for mail {}", mail.getHdfsId());
 
@@ -74,6 +88,11 @@ public class Stages {
         });
     }
 
+    /**
+     * Schedules feature extraction and saving for specific email and it's artifacts.
+     * @param registry registry with extracted artifacts for this email
+     * @param mail extracted general info about email (with ot without actual local email file)
+     */
     public void extractPrimaryFeatures(PrimaryEntitiesRegistry registry, Mail mail) {
         final String id = mail.getTimestamp() + ":" + mail.getHdfsId();
         logger.info("Scheduling extract features task for mail {}", id);

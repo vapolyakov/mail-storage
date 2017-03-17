@@ -8,6 +8,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author metal
+ *
+ * Allows to extract and save primary entity from some input data.
+ * @param <I> input data type
+ * @param <O> output entity type
  */
 public abstract class PrimaryEntityManager<I, O extends BasePrimaryEntity> {
     private static final Logger logger = LoggerFactory.getLogger(PrimaryEntityManager.class);
@@ -15,13 +19,27 @@ public abstract class PrimaryEntityManager<I, O extends BasePrimaryEntity> {
     private PrimaryEntityExtractor<I, O> extractor;
     private AbstractHBDAO<Long, O> dao;
 
+    /**
+     * Creates PrimaryEntityManager.
+     * @param extractor specific entity extractor
+     * @param dao specific entity dao to save extracted data
+     */
     public PrimaryEntityManager(PrimaryEntityExtractor<I, O> extractor, AbstractHBDAO<Long, O> dao) {
         this.extractor = extractor;
         this.dao = dao;
     }
 
+    /**
+     * Get primary entity type (basically it is artifact or feature) that this manager can handle with.
+     * @return entity type that this manager can handle with
+     */
     protected abstract EntityType getEntityType();
 
+    /**
+     * Extract BasePrimaryEntity from input data and save it with specific dao.
+     * @param input input data
+     * @return extracted entity
+     */
     public O extractAndSave(I input) {
         logger.info("Starting to extract and save {}", getEntityType());
         try {

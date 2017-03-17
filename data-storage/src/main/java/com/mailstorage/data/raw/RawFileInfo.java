@@ -4,6 +4,8 @@ import java.io.File;
 
 /**
  * @author metal
+ *
+ * Stores raw information about recently uploaded (via /upload handler) local file.
  */
 public class RawFileInfo {
     private final String userId;

@@ -7,6 +7,8 @@ import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 
 /**
  * @author metal
+ *
+ * Composite feature that calculates fraud probability based on ORCL word and subject artifacts.
  */
 @HBTable("mail")
 public class CompositeFeature extends BasePrimaryEntity {

@@ -9,6 +9,8 @@ import java.util.List;
 
 /**
  * @author metal
+ *
+ * Artifact that checks subject for suspicious words and at the same time if there is any fraud "to" email addresses.
  */
 @HBTable("mail")
 public class SubjectArtifact extends BasePrimaryEntity {

@@ -15,12 +15,19 @@ import java.io.IOException;
 
 /**
  * @author metal
+ *
+ * Functionally configures HBase on application start. Creates needed tables, etc.
  */
 public class DataStorageHBasePreparer {
     private static final Logger logger = LoggerFactory.getLogger(DataStorageHBasePreparer.class);
 
     private final Admin admin;
 
+    /**
+     * Creates instance of DataStorageHBasePreparer with specific connection configuration.
+     * @param configuration HBase connection configuration
+     * @throws IOException if i/o error occurs while connecting to HBase
+     */
     public DataStorageHBasePreparer(Configuration configuration) throws IOException {
         Connection connection = ConnectionFactory.createConnection(configuration);
         this.admin = connection.getAdmin();

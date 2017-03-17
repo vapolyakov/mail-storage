@@ -13,6 +13,9 @@ import java.util.stream.Collectors;
 
 /**
  * @author metal
+ *
+ * Catches ConstraintViolationException and allows to construct proper http response
+ * that matches general error response json scheme.
  */
 @Provider
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {

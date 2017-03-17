@@ -19,6 +19,10 @@ import java.io.*;
 
 /**
  * @author metal
+ *
+ * /upload handler. Allows to accept .eml files via POST request with two additional required query parameters:
+ * user_id - user id to whom .eml file belongs
+ * filename - initial .eml filename (to trace uploaded files to its sources)
  */
 @Path("/")
 @Component

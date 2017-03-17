@@ -6,6 +6,8 @@ import com.mailstorage.data.mail.entities.Mail;
 
 /**
  * @author metal
+ *
+ * Base class for all 'search specific word in email message body' artifact extractors.
  */
 public abstract class WordArtifactExtractor<T extends BasePrimaryEntity> implements PrimaryEntityExtractor<Mail, T> {
     private final String word;
