@@ -44,6 +44,11 @@ public class LengthFeature extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return length != null;
+    }
+
     public Long getLength() {
         return length;
     }

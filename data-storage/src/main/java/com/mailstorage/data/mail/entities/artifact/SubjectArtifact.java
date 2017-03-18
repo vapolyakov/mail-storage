@@ -52,6 +52,11 @@ public class SubjectArtifact extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return suspiciousWords != null || fraudTo != null;
+    }
+
     public List<String> getSuspiciousWords() {
         return suspiciousWords;
     }

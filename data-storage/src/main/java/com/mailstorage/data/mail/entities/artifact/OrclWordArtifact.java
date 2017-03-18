@@ -44,6 +44,11 @@ public class OrclWordArtifact extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return pos != null;
+    }
+
     public Integer getPos() {
         return pos;
     }

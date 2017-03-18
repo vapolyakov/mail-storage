@@ -10,4 +10,5 @@ import com.flipkart.hbaseobjectmapper.HBRecord;
 public abstract class BasePrimaryEntity implements HBRecord<Long> {
     public abstract Long getTimestamp();
     public abstract void setTimestamp(Long timestamp);
+    public abstract boolean isInitialized();
 }

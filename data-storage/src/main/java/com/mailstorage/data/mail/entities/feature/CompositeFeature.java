@@ -46,6 +46,11 @@ public class CompositeFeature extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return fraud != null;
+    }
+
     public Double getFraud() {
         return fraud;
     }

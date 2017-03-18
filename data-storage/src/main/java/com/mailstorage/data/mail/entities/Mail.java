@@ -94,6 +94,11 @@ public class Mail extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return uid != null;
+    }
+
     public String getUid() {
         return uid;
     }

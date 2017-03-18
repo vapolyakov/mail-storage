@@ -20,6 +20,7 @@ import java.util.List;
  */
 public class CoreTestData {
     public static final String USER_ID = "123";
+    public static final String USER_ID_2 = "567";
     public static final String HDFS_ID = "hdfs_id_1";
     public static final String FILENAME = "test_mail.eml";
     public static final File EMAIL_FILE;

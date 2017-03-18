@@ -44,6 +44,11 @@ public class OrclRelevanceFeature extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return relevance != null;
+    }
+
     public Double getRelevance() {
         return relevance;
     }

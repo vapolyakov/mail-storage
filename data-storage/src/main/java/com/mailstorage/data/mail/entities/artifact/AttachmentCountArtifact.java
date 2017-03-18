@@ -44,6 +44,11 @@ public class AttachmentCountArtifact extends BasePrimaryEntity {
         setTimestamp(rowKey);
     }
 
+    @Override
+    public boolean isInitialized() {
+        return count != null;
+    }
+
     public Integer getCount() {
         return count;
     }
