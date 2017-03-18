@@ -1,6 +1,7 @@
 package com.mailstorage.data.mail.dao;
 
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
+import com.flipkart.hbaseobjectmapper.HBObjectMapper;
 import com.mailstorage.data.mail.DataStorageHBaseConfiguration;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
@@ -12,8 +13,10 @@ import com.mailstorage.data.mail.entities.feature.LengthFeature;
 import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
 import com.mailstorage.data.mail.entities.feature.SberRelevanceFeature;
 import org.apache.hadoop.conf.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 
 import java.io.IOException;
 
@@ -21,6 +24,7 @@ import java.io.IOException;
  * @author metal
  */
 @org.springframework.context.annotation.Configuration
+@PropertySource("classpath:data-storage.properties")
 @Import({
         DataStorageHBaseConfiguration.class
 })
@@ -68,5 +72,19 @@ public class DataStorageHBaseDaoConfiguration {
     @Bean
     public AbstractHBDAO<Long, SberRelevanceFeature> sberRelevanceDao(Configuration conf) throws IOException {
         return new AbstractHBDAO<Long, SberRelevanceFeature>(conf) {};
+    }
+
+    @Bean
+    public RawHBaseDao rawHBaseDao(Configuration configuration,
+            @Value("${mail.storage.raw.hbase.dao.scan.caching.number}")
+            int numberOfRowsForCachingInScans,
+            HBObjectMapper hbObjectMapper) throws IOException
+    {
+        return new RawHBaseDao(configuration, numberOfRowsForCachingInScans, hbObjectMapper);
+    }
+
+    @Bean
+    public HBObjectMapper hbObjectMapper() {
+        return new HBObjectMapper();
     }
 }
