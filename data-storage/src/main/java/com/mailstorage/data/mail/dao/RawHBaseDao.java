@@ -51,7 +51,8 @@ public class RawHBaseDao {
                     Map<String, List<Object>> deserializedEntities = new HashMap<>();
                     resultScanner.forEach(readEntitiesAndMapByUserId(entitiesToDeserialize, deserializedEntities));
                     return deserializedEntities;
-                });
+                },
+                true);
     }
 
     public void scanAndProcess(String tableName, Map<String, List<String>> familyMap,
@@ -61,13 +62,14 @@ public class RawHBaseDao {
                 resultScanner -> {
                     resultScanner.forEach(processor);
                     return null;
-                });
+                },
+                false);
     }
 
     private <R> R scanAndProcessInternal(String tableName, Map<String, List<String>> familyMap,
-            long start, long end, Function<ResultScanner, R> function) throws IOException
+            long start, long end, Function<ResultScanner, R> function, boolean mapByUserId) throws IOException
     {
-        Scan scan = constructScan(familyMap, start, end);
+        Scan scan = constructScan(familyMap, start, end, mapByUserId);
 
         TableName mailTableName = TableName.valueOf(tableName);
         try (Table table = connection.getTable(mailTableName)) {
@@ -96,7 +98,7 @@ public class RawHBaseDao {
         };
     }
 
-    private Scan constructScan(Map<String, List<String>> familyMap, long start, long end) {
+    private Scan constructScan(Map<String, List<String>> familyMap, long start, long end, boolean mapByUserId) {
         Scan scan = new Scan(Bytes.toBytes(start), Bytes.toBytes(end));
 
         scan.setCaching(numberOfRowsForCachingInScans);
@@ -114,7 +116,9 @@ public class RawHBaseDao {
             scan.setFamilyMap(convertedMap);
         }
 
-        scan.addColumn(RAW_COLUMN_FAMILY_NAME, USER_ID_QUALIFIER);
+        if (mapByUserId) {
+            scan.addColumn(RAW_COLUMN_FAMILY_NAME, USER_ID_QUALIFIER);
+        }
 
         return scan;
     }
