@@ -1,6 +1,5 @@
 package com.mailstorage.data.mail.dao;
 
-import com.flipkart.hbaseobjectmapper.HBObjectMapper;
 import com.flipkart.hbaseobjectmapper.codec.DeserializationException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.TableName;
@@ -12,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * @author metal
@@ -26,14 +27,14 @@ public class RawHBaseDao {
 
     private final Connection connection;
     private final int numberOfRowsForCachingInScans;
-    private final HBObjectMapper hbObjectMapper;
+    private final RawHBaseDaoHelper rawHBaseDaoHelper;
 
     public RawHBaseDao(Configuration configuration, int numberOfRowsForCachingInScans,
-            HBObjectMapper hbObjectMapper) throws IOException
+            RawHBaseDaoHelper rawHBaseDaoHelper) throws IOException
     {
         this.connection = ConnectionFactory.createConnection(configuration);
         this.numberOfRowsForCachingInScans = numberOfRowsForCachingInScans;
-        this.hbObjectMapper = hbObjectMapper;
+        this.rawHBaseDaoHelper = rawHBaseDaoHelper;
     }
 
     public Map<String, List<Object>> scan(String tableName, Map<String, List<String>> familyMap,
@@ -45,30 +46,54 @@ public class RawHBaseDao {
     public Map<String, List<Object>> scan(String tableName, Map<String, List<String>> familyMap,
             long start, long end, List<Class> entitiesToDeserialize) throws IOException
     {
+        return scanAndProcessInternal(tableName, familyMap, start, end,
+                resultScanner -> {
+                    Map<String, List<Object>> deserializedEntities = new HashMap<>();
+                    resultScanner.forEach(readEntitiesAndMapByUserId(entitiesToDeserialize, deserializedEntities));
+                    return deserializedEntities;
+                });
+    }
+
+    public void scanAndProcess(String tableName, Map<String, List<String>> familyMap,
+            long start, long end, Consumer<Result> processor) throws IOException
+    {
+        scanAndProcessInternal(tableName, familyMap, start, end,
+                resultScanner -> {
+                    resultScanner.forEach(processor);
+                    return null;
+                });
+    }
+
+    private <R> R scanAndProcessInternal(String tableName, Map<String, List<String>> familyMap,
+            long start, long end, Function<ResultScanner, R> function) throws IOException
+    {
         Scan scan = constructScan(familyMap, start, end);
 
         TableName mailTableName = TableName.valueOf(tableName);
         try (Table table = connection.getTable(mailTableName)) {
             try (ResultScanner resultScanner = table.getScanner(scan)) {
-                Map<String, List<Object>> deserializedEntities = new HashMap<>();
-                resultScanner.forEach(result -> {
-                    String userId = getUserIdFromResult(result);
-
-                    entitiesToDeserialize.forEach(aClass -> {
-                        try {
-                            if (!deserializedEntities.containsKey(userId)) {
-                                deserializedEntities.put(userId, new ArrayList<>());
-                            }
-                            deserializedEntities.get(userId).add(hbObjectMapper.readValue(result, aClass));
-                        } catch (DeserializationException e) {
-                            logger.error("Deserialization of entity " + aClass.getSimpleName() + " failed", e);
-                        }
-                    });
-                });
-
-                return deserializedEntities;
+                return function.apply(resultScanner);
             }
         }
+    }
+
+    private Consumer<Result> readEntitiesAndMapByUserId(
+            List<Class> entitiesToDeserialize, Map<String, List<Object>> deserializedEntities)
+    {
+        return result -> {
+            String userId = getUserIdFromResult(result);
+
+            entitiesToDeserialize.forEach(aClass -> {
+                try {
+                    if (!deserializedEntities.containsKey(userId)) {
+                        deserializedEntities.put(userId, new ArrayList<>());
+                    }
+                    deserializedEntities.get(userId).add(rawHBaseDaoHelper.read(result, aClass));
+                } catch (DeserializationException e) {
+                    logger.error("Deserialization of entity " + aClass.getSimpleName() + " failed", e);
+                }
+            });
+        };
     }
 
     private Scan constructScan(Map<String, List<String>> familyMap, long start, long end) {

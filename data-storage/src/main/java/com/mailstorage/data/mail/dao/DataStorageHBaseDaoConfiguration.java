@@ -78,13 +78,18 @@ public class DataStorageHBaseDaoConfiguration {
     public RawHBaseDao rawHBaseDao(Configuration configuration,
             @Value("${mail.storage.raw.hbase.dao.scan.caching.number}")
             int numberOfRowsForCachingInScans,
-            HBObjectMapper hbObjectMapper) throws IOException
+            RawHBaseDaoHelper rawHBaseDaoHelper) throws IOException
     {
-        return new RawHBaseDao(configuration, numberOfRowsForCachingInScans, hbObjectMapper);
+        return new RawHBaseDao(configuration, numberOfRowsForCachingInScans, rawHBaseDaoHelper);
     }
 
     @Bean
     public HBObjectMapper hbObjectMapper() {
         return new HBObjectMapper();
+    }
+
+    @Bean
+    public RawHBaseDaoHelper rawHBaseDaoHelper(HBObjectMapper hbObjectMapper) {
+        return new RawHBaseDaoHelper(hbObjectMapper);
     }
 }
