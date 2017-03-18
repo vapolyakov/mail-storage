@@ -31,6 +31,8 @@ public class Stages {
     private ThreadPoolExecutor featureExtractorExecutor;
     private CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager;
 
+    private boolean removeLocalFiles = true;
+
     public Stages(ThreadPoolExecutor generalInformationExtractorExecutor,
             GeneralEmailInformationManager generalInformationManager,
             ThreadPoolExecutor artifactExtractorExecutor,
@@ -106,10 +108,14 @@ public class Stages {
             }
             logger.info("All processing finished for mail {}", id);
 
-            if (mail.getEmailLocalFile() != null) {
+            if (removeLocalFiles && mail.getEmailLocalFile() != null) {
                 logger.info("Removing local .eml file {}", mail.getEmailLocalFile());
                 FileUtils.deleteQuietly(mail.getEmailLocalFile());
             }
         });
+    }
+
+    void setRemoveLocalFiles(boolean removeLocalFiles) {
+        this.removeLocalFiles = removeLocalFiles;
     }
 }
