@@ -4,11 +4,14 @@ import com.mailstorage.core.artifact.extractors.AttachmentCountArtifactExtractor
 import com.mailstorage.core.artifact.extractors.OrclWordArtifactExtractor;
 import com.mailstorage.core.artifact.extractors.SberWordArtifactExtractor;
 import com.mailstorage.core.artifact.extractors.SubjectArtifactExtractor;
+import com.mailstorage.core.feature.secondary.accumulator.UserAccumulatedData;
 import com.mailstorage.core.general.GeneralEmailInformationParser;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.Mail;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
 import com.mailstorage.data.raw.RawFileInfo;
+import org.joda.time.Instant;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -19,6 +22,8 @@ import java.util.List;
  * @author metal
  */
 public class CoreTestData {
+    public static final long TIMESTAMP = Instant.now().getMillis();
+
     public static final String USER_ID = "123";
     public static final String USER_ID_2 = "567";
     public static final String HDFS_ID = "hdfs_id_1";
@@ -28,6 +33,8 @@ public class CoreTestData {
 
     public static final String FRAUD_EMAILS = "Olo Oloev <olol@ololol.mail.mail>";
     public static final String SUSPICIOUS_WORDS = "money, fraud, banks";
+
+    public static final UserAccumulatedData USER_ACCUMULATED_DATA;
 
     private static Mail mail;
     private static PrimaryEntitiesRegistry registry;
@@ -44,6 +51,11 @@ public class CoreTestData {
                     new AttachmentCountArtifactExtractor(),
                     new SubjectArtifactExtractor(FRAUD_EMAILS, SUSPICIOUS_WORDS)
             );
+
+            USER_ACCUMULATED_DATA = new UserAccumulatedData(CoreTestData.USER_ID, 1, 2);
+            USER_ACCUMULATED_DATA.add(new LengthFeature(TIMESTAMP, 10L));
+            USER_ACCUMULATED_DATA.add(new LengthFeature(TIMESTAMP, 20L));
+            USER_ACCUMULATED_DATA.add(new LengthFeature(TIMESTAMP, 30L));
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
