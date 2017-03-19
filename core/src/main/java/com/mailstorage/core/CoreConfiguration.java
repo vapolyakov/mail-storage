@@ -5,6 +5,8 @@ import com.mailstorage.core.artifact.ArtifactExtractorConfiguration;
 import com.mailstorage.core.artifact.BaseArtifactManager;
 import com.mailstorage.core.feature.primary.BaseFeatureManager;
 import com.mailstorage.core.feature.primary.FeatureExtractorConfiguration;
+import com.mailstorage.core.feature.secondary.SecondaryFeaturesConfiguration;
+import com.mailstorage.core.feature.secondary.accumulator.EntityAccumulator;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
 import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
@@ -26,7 +28,8 @@ import java.util.concurrent.ThreadPoolExecutor;
 @PropertySource("classpath:core.properties")
 @Import({
         ArtifactExtractorConfiguration.class,
-        FeatureExtractorConfiguration.class
+        FeatureExtractorConfiguration.class,
+        SecondaryFeaturesConfiguration.class
 })
 public class CoreConfiguration {
     @Bean
@@ -70,11 +73,13 @@ public class CoreConfiguration {
             @Qualifier("commonArtifactManager")
             CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager,
             @Qualifier("commonFeatureManager")
-            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager)
+            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager,
+            EntityAccumulator entityAccumulator)
     {
         return new Stages(
                 generalInformationExtractorExecutor, generalEmailInformationManager,
                 artifactExtractorExecutor, commonArtifactManager,
-                featureExtractorExecutor, commonFeatureManager);
+                featureExtractorExecutor, commonFeatureManager,
+                entityAccumulator);
     }
 }

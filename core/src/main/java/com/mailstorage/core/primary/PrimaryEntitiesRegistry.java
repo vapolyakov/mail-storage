@@ -2,6 +2,7 @@ package com.mailstorage.core.primary;
 
 import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +42,10 @@ public class PrimaryEntitiesRegistry {
     public PrimaryEntitiesRegistry merge(PrimaryEntitiesRegistry another) {
         another.getEntities().values().stream().forEach(this::registerPrimaryEntity);
         return this;
+    }
+
+    public Collection<BasePrimaryEntity> listEntities() {
+        return entities.values();
     }
 
     Map<Class, BasePrimaryEntity> getEntities() {

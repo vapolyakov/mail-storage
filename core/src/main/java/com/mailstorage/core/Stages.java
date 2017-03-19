@@ -2,6 +2,7 @@ package com.mailstorage.core;
 
 import com.mailstorage.core.artifact.BaseArtifactManager;
 import com.mailstorage.core.feature.primary.BaseFeatureManager;
+import com.mailstorage.core.feature.secondary.accumulator.EntityAccumulator;
 import com.mailstorage.core.general.GeneralEmailInformationManager;
 import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
@@ -31,6 +32,8 @@ public class Stages {
     private ThreadPoolExecutor featureExtractorExecutor;
     private CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager;
 
+    private EntityAccumulator entityAccumulator;
+
     private boolean removeLocalFiles = true;
 
     public Stages(ThreadPoolExecutor generalInformationExtractorExecutor,
@@ -38,7 +41,8 @@ public class Stages {
             ThreadPoolExecutor artifactExtractorExecutor,
             CommonPrimaryEntityManager<Mail, BaseArtifactManager> commonArtifactManager,
             ThreadPoolExecutor featureExtractorExecutor,
-            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager)
+            CommonPrimaryEntityManager<PrimaryEntitiesRegistry, BaseFeatureManager> commonFeatureManager,
+            EntityAccumulator entityAccumulator)
     {
         this.generalInformationExtractorExecutor = generalInformationExtractorExecutor;
         this.generalInformationManager = generalInformationManager;
@@ -46,6 +50,7 @@ public class Stages {
         this.commonArtifactManager = commonArtifactManager;
         this.featureExtractorExecutor = featureExtractorExecutor;
         this.commonFeatureManager = commonFeatureManager;
+        this.entityAccumulator = entityAccumulator;
     }
 
     /**
@@ -61,6 +66,7 @@ public class Stages {
         generalInformationExtractorExecutor.submit(() -> {
             try {
                 Mail mail = generalInformationManager.extractAndSaveGeneralInfo(rawEmailFileInfo, hdfsId);
+                entityAccumulator.put(mail.getUid(), mail);
                 if (continueProcessing) {
                     extractArtifacts(mail, true);
                 }
@@ -81,6 +87,7 @@ public class Stages {
         artifactExtractorExecutor.submit(() -> {
             try {
                 PrimaryEntitiesRegistry registry = commonArtifactManager.calculateEntities(mail);
+                registry.listEntities().stream().forEach(entity -> entityAccumulator.put(mail.getUid(), entity));
                 if (continueProcessing) {
                     extractPrimaryFeatures(registry, mail);
                 }
@@ -102,7 +109,8 @@ public class Stages {
         registry.registerPrimaryEntity(mail);
         featureExtractorExecutor.submit(() -> {
             try {
-                commonFeatureManager.calculateEntities(registry);
+                PrimaryEntitiesRegistry featuresRegistry = commonFeatureManager.calculateEntities(registry);
+                featuresRegistry.listEntities().forEach(entity -> entityAccumulator.put(mail.getUid(), entity));
             } catch (Exception e) {
                 logger.error("Feature extracting failed", e);
             }
