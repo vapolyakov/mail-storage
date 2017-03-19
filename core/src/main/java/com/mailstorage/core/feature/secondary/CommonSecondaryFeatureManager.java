@@ -34,8 +34,9 @@ public class CommonSecondaryFeatureManager<M extends SecondaryFeatureManager> {
     /**
      * Calculate all available secondary features for given user accumulated data.
      * @param input accumulated data for specific user and period of time
+     * @return id of secondary features row
      */
-    public void calculateFeatures(UserAccumulatedData input) {
+    public Long calculateFeatures(UserAccumulatedData input) {
         long id = Instant.now().getMillis();
         try {
             logger.info("Starting to save base information of secondary features for user {} from {} to {}",
@@ -50,5 +51,7 @@ public class CommonSecondaryFeatureManager<M extends SecondaryFeatureManager> {
         }
 
         managers.stream().forEach(manager -> manager.extractAndSave(id, input));
+
+        return id;
     }
 }

@@ -63,9 +63,12 @@ public class UserAccumulatedData {
      * Returns all available entities of specific class.
      */
     public <T extends BasePrimaryEntity> List<T> getSpecificEntities(Class<T> aClass) {
-        return mappedByClassEntities.get(aClass)
-                .stream()
-                .map(entity -> (T) entity)
-                .collect(Collectors.toList());
+        if (mappedByClassEntities.containsKey(aClass)) {
+            return mappedByClassEntities.get(aClass)
+                    .stream()
+                    .map(entity -> (T) entity)
+                    .collect(Collectors.toList());
+        }
+        return new ArrayList<>();
     }
 }
