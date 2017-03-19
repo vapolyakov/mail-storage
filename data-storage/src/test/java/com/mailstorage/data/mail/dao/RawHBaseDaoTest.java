@@ -59,7 +59,7 @@ public class RawHBaseDaoTest {
         familyMap.put("feature", Collections.singletonList("orcl_rel"));
 
         Map<String, List<Object>> entitiesMap = rawHBaseDao.scan("mail", familyMap,
-                Instant.now().minus(Duration.standardMinutes(5)).getMillis(),
+                Instant.now().minus(Duration.standardSeconds(30)).getMillis(),
                 Arrays.asList(OrclWordArtifact.class, OrclRelevanceFeature.class));
 
         Assert.assertTrue(entitiesMap.containsKey(DataStorageTestData.USER_ID));

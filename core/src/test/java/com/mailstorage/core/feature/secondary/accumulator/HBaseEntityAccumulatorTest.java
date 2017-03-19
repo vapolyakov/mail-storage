@@ -63,7 +63,7 @@ public class HBaseEntityAccumulatorTest {
 
         List<UserAccumulatedData> userAccumulatedDatas =
                 accumulator.getAccumulatedForPeriod(
-                        Instant.now().minus(Duration.standardMinutes(5)).getMillis(),
+                        Instant.now().minus(Duration.standardSeconds(30)).getMillis(),
                         Instant.now().getMillis());
 
         Assert.assertEquals(1, userAccumulatedDatas.size());
