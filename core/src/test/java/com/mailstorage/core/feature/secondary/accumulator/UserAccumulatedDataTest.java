@@ -13,7 +13,7 @@ import org.junit.Test;
 public class UserAccumulatedDataTest {
     @Test
     public void testDataAccumulation() {
-        UserAccumulatedData userAccumulatedData = new UserAccumulatedData(CoreTestData.USER_ID);
+        UserAccumulatedData userAccumulatedData = new UserAccumulatedData(CoreTestData.USER_ID, 1, 2);
         userAccumulatedData.add(new LengthFeature(1L, 123L));
         userAccumulatedData.add(new SberWordArtifact(2L, 345));
         userAccumulatedData.add(new AttachmentCountArtifact(3L, 987));

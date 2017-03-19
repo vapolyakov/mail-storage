@@ -36,7 +36,7 @@ public class InMemoryEntityAccumulator implements EntityAccumulator {
                     SortedMap<Long, List<BasePrimaryEntity>> entitiesSubset =
                             userIdToEntities.getValue().subMap(start, end);
 
-                    UserAccumulatedData userAccumulatedData = new UserAccumulatedData(userId);
+                    UserAccumulatedData userAccumulatedData = new UserAccumulatedData(userId, start, end);
                     entitiesSubset.values().stream()
                             .forEach(entities -> entities.forEach(userAccumulatedData::add));
 

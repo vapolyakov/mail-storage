@@ -12,7 +12,7 @@ import com.mailstorage.data.mail.entities.feature.primary.CompositeFeature;
 import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
 import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 import com.mailstorage.data.mail.entities.feature.primary.SberRelevanceFeature;
-import com.mailstorage.data.mail.entities.feature.secondary.AvgEmailLenghtFeature;
+import com.mailstorage.data.mail.entities.feature.secondary.AvgEmailLengthFeature;
 import com.mailstorage.data.mail.entities.feature.secondary.SecondaryFeature;
 import com.mailstorage.data.mail.entities.feature.secondary.TechCompanyRelevanceFeature;
 import org.apache.hadoop.conf.Configuration;
@@ -83,8 +83,8 @@ public class DataStorageHBaseDaoConfiguration {
     }
 
     @Bean
-    public AbstractHBDAO<Long, AvgEmailLenghtFeature> avgEmailLenghtFeatureDao(Configuration conf) throws IOException {
-        return new AbstractHBDAO<Long, AvgEmailLenghtFeature>(conf) {};
+    public AbstractHBDAO<Long, AvgEmailLengthFeature> avgEmailLenghtFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, AvgEmailLengthFeature>(conf) {};
     }
 
     @Bean

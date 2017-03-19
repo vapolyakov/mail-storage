@@ -19,27 +19,38 @@ public class SecondaryFeaturesCalculationTask implements Runnable {
 
     private static final long OFFSET = 1000;
 
+    private final CommonSecondaryFeatureManager<SecondaryFeatureManager> commonSecondaryFeatureManager;
     private final EntityAccumulator entityAccumulator;
     private final long rate;
 
     /**
      * Instantiates task.
+     * @param commonSecondaryFeatureManager manager that calculates and saves secondary features
      * @param entityAccumulator entity provider for specific time interval
      * @param rate task execution rate
      */
-    public SecondaryFeaturesCalculationTask(EntityAccumulator entityAccumulator, long rate) {
+    public SecondaryFeaturesCalculationTask(
+            CommonSecondaryFeatureManager<SecondaryFeatureManager> commonSecondaryFeatureManager,
+            EntityAccumulator entityAccumulator, long rate)
+    {
+        this.commonSecondaryFeatureManager = commonSecondaryFeatureManager;
         this.entityAccumulator = entityAccumulator;
         this.rate = rate;
     }
 
     @Override
     public void run() {
-        logger.info("Calculating secondary features, current users: {}",
-                entityAccumulator.getAccumulatedForPeriod(
-                        Instant.now().minus(Duration.millis(rate + OFFSET)).getMillis(),
-                        Instant.now().getMillis()
-                ).stream()
-                        .map(UserAccumulatedData::getUserId)
-                        .collect(Collectors.toList()));
+        logger.info("Starting to calculate secondary features for all users");
+        entityAccumulator
+                .getAccumulatedForPeriod(getStartingTime(), getEndingTime())
+                .forEach(commonSecondaryFeatureManager::calculateFeatures);
+    }
+
+    private long getEndingTime() {
+        return Instant.now().getMillis();
+    }
+
+    private long getStartingTime() {
+        return Instant.now().minus(Duration.millis(rate + OFFSET)).getMillis();
     }
 }

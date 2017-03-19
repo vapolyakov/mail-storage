@@ -39,7 +39,7 @@ public class HBaseEntityAccumulator implements EntityAccumulator {
 
             List<UserAccumulatedData> result = new ArrayList<>();
             scanResult.forEach((userId, entities) -> {
-                UserAccumulatedData userAccumulatedData = new UserAccumulatedData(userId);
+                UserAccumulatedData userAccumulatedData = new UserAccumulatedData(userId, start, end);
                 entities.forEach(entity -> {
                     BasePrimaryEntity basePrimaryEntity = (BasePrimaryEntity) entity;
                     if (basePrimaryEntity.isInitialized()) {

@@ -13,16 +13,24 @@ import javax.annotation.PostConstruct;
 public class SecondaryFeaturesCalculationService {
     private final TaskScheduler scheduler;
     private final EntityAccumulator entityAccumulator;
+    private final CommonSecondaryFeatureManager<SecondaryFeatureManager> commonSecondaryFeatureManager;
     private final long rate;
 
-    public SecondaryFeaturesCalculationService(TaskScheduler scheduler, EntityAccumulator entityAccumulator, long rate) {
+    public SecondaryFeaturesCalculationService(
+            TaskScheduler scheduler,
+            EntityAccumulator entityAccumulator,
+            CommonSecondaryFeatureManager<SecondaryFeatureManager> commonSecondaryFeatureManager,
+            long rate)
+    {
         this.scheduler = scheduler;
         this.entityAccumulator = entityAccumulator;
+        this.commonSecondaryFeatureManager = commonSecondaryFeatureManager;
         this.rate = rate;
     }
 
     @PostConstruct
     public void start() {
-        scheduler.scheduleAtFixedRate(new SecondaryFeaturesCalculationTask(entityAccumulator, rate), rate);
+        scheduler.scheduleAtFixedRate(
+                new SecondaryFeaturesCalculationTask(commonSecondaryFeatureManager, entityAccumulator, rate), rate);
     }
 }

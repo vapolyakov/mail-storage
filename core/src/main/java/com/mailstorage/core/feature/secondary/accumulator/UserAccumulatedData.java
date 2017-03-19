@@ -12,14 +12,20 @@ import java.util.stream.Collectors;
  */
 public class UserAccumulatedData {
     private final String userId;
+    private final long from;
+    private final long to;
     private final Map<Class, List<BasePrimaryEntity>> mappedByClassEntities = new HashMap<>();
 
     /**
      * Creates new instance of UserAccumulatedData to start gathering data about specified user.
      * @param userId user to accumulate data about
+     * @param from accumulated data from this point in time
+     * @param to accumulated data to that point in time
      */
-    public UserAccumulatedData(String userId) {
+    public UserAccumulatedData(String userId, long from, long to) {
         this.userId = userId;
+        this.from = from;
+        this.to = to;
     }
 
     /**
@@ -36,6 +42,14 @@ public class UserAccumulatedData {
 
     public String getUserId() {
         return userId;
+    }
+
+    public long getFrom() {
+        return from;
+    }
+
+    public long getTo() {
+        return to;
     }
 
     /**

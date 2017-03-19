@@ -8,17 +8,17 @@ import com.flipkart.hbaseobjectmapper.HBTable;
  * @author metal
  */
 @HBTable("secondary")
-public class AvgEmailLenghtFeature extends BaseSecondaryEntity {
+public class AvgEmailLengthFeature extends BaseSecondaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "feature", column = "avg")
+    @HBColumn(family = "feature", column = "avg_length")
     private Double avgEmailLength;
 
-    public AvgEmailLenghtFeature() {
+    public AvgEmailLengthFeature() {
     }
 
-    public AvgEmailLenghtFeature(Long timestamp, Double avgEmailLength) {
+    public AvgEmailLengthFeature(Long timestamp, Double avgEmailLength) {
         this.timestamp = timestamp;
         this.avgEmailLength = avgEmailLength;
     }

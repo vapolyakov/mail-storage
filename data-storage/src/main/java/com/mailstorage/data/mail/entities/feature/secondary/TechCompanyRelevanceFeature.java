@@ -12,7 +12,7 @@ public class TechCompanyRelevanceFeature extends BaseSecondaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "feature", column = "relevance")
+    @HBColumn(family = "feature", column = "tech_company_rel")
     private Double relevance;
 
     public TechCompanyRelevanceFeature() {
