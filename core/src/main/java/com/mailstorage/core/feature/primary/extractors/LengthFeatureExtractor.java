@@ -3,7 +3,7 @@ package com.mailstorage.core.feature.primary.extractors;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.Mail;
-import com.mailstorage.data.mail.entities.feature.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
 
 /**
  * @author metal

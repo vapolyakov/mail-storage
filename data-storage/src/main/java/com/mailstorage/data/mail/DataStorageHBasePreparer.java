@@ -36,6 +36,7 @@ public class DataStorageHBasePreparer {
     @PostConstruct
     public void initializeTables() throws IOException {
         createMailTable();
+        createSecondaryFeaturesTable();
     }
 
     private void createMailTable() throws IOException {
@@ -46,6 +47,14 @@ public class DataStorageHBasePreparer {
         table.addFamily(new HColumnDescriptor("artifact"));
         table.addFamily(new HColumnDescriptor("feature"));
         createTableIfNeeded(mailTableName, table);
+    }
+
+    private void createSecondaryFeaturesTable() throws IOException {
+        TableName secondary = TableName.valueOf("secondary");
+        HTableDescriptor table = new HTableDescriptor(secondary);
+        table.addFamily(new HColumnDescriptor("general"));
+        table.addFamily(new HColumnDescriptor("feature"));
+        createTableIfNeeded(secondary, table);
     }
 
     private void createTableIfNeeded(TableName tableName, HTableDescriptor table) throws IOException {

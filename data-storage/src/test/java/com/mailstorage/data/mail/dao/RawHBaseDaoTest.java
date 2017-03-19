@@ -6,7 +6,7 @@ import com.mailstorage.data.DataStorageTestConfiguration;
 import com.mailstorage.data.DataStorageTestData;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.junit.After;

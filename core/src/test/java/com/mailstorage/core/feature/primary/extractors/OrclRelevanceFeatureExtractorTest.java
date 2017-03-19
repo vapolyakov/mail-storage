@@ -2,7 +2,7 @@ package com.mailstorage.core.feature.primary.extractors;
 
 import com.mailstorage.core.CoreTestData;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

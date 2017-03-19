@@ -8,10 +8,13 @@ import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
-import com.mailstorage.data.mail.entities.feature.CompositeFeature;
-import com.mailstorage.data.mail.entities.feature.LengthFeature;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
-import com.mailstorage.data.mail.entities.feature.SberRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.CompositeFeature;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.SberRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.secondary.AvgEmailLenghtFeature;
+import com.mailstorage.data.mail.entities.feature.secondary.SecondaryFeature;
+import com.mailstorage.data.mail.entities.feature.secondary.TechCompanyRelevanceFeature;
 import org.apache.hadoop.conf.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -72,6 +75,21 @@ public class DataStorageHBaseDaoConfiguration {
     @Bean
     public AbstractHBDAO<Long, SberRelevanceFeature> sberRelevanceDao(Configuration conf) throws IOException {
         return new AbstractHBDAO<Long, SberRelevanceFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, SecondaryFeature> secondaryFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, SecondaryFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, AvgEmailLenghtFeature> avgEmailLenghtFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, AvgEmailLenghtFeature>(conf) {};
+    }
+
+    @Bean
+    public AbstractHBDAO<Long, TechCompanyRelevanceFeature> techCompanyRelevanceFeatureDao(Configuration conf) throws IOException {
+        return new AbstractHBDAO<Long, TechCompanyRelevanceFeature>(conf) {};
     }
 
     @Bean

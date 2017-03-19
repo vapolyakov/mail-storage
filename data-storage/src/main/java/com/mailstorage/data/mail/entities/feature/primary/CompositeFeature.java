@@ -1,4 +1,4 @@
-package com.mailstorage.data.mail.entities.feature;
+package com.mailstorage.data.mail.entities.feature.primary;
 
 import com.flipkart.hbaseobjectmapper.HBColumn;
 import com.flipkart.hbaseobjectmapper.HBRowKey;
@@ -7,21 +7,23 @@ import com.mailstorage.data.mail.entities.BasePrimaryEntity;
 
 /**
  * @author metal
+ *
+ * Composite feature that calculates fraud probability based on ORCL word and subject artifacts.
  */
 @HBTable("mail")
-public class LengthFeature extends BasePrimaryEntity {
+public class CompositeFeature extends BasePrimaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "feature", column = "length")
-    private Long length;
+    @HBColumn(family = "feature", column = "fraud")
+    private Double fraud;
 
-    public LengthFeature() {
+    public CompositeFeature() {
     }
 
-    public LengthFeature(Long timestamp, Long length) {
+    public CompositeFeature(Long timestamp, Double fraud) {
         this.timestamp = timestamp;
-        this.length = length;
+        this.fraud = fraud;
     }
 
     @Override
@@ -46,10 +48,10 @@ public class LengthFeature extends BasePrimaryEntity {
 
     @Override
     public boolean isInitialized() {
-        return length != null;
+        return fraud != null;
     }
 
-    public Long getLength() {
-        return length;
+    public Double getFraud() {
+        return fraud;
     }
 }

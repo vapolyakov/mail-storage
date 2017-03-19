@@ -1,4 +1,4 @@
-package com.mailstorage.data.mail.entities.feature;
+package com.mailstorage.data.mail.entities.feature.primary;
 
 import com.flipkart.hbaseobjectmapper.HBColumn;
 import com.flipkart.hbaseobjectmapper.HBRowKey;
@@ -9,17 +9,17 @@ import com.mailstorage.data.mail.entities.BasePrimaryEntity;
  * @author metal
  */
 @HBTable("mail")
-public class OrclRelevanceFeature extends BasePrimaryEntity {
+public class SberRelevanceFeature extends BasePrimaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "feature", column = "orcl_rel")
+    @HBColumn(family = "feature", column = "sber_rel")
     private Double relevance;
 
-    public OrclRelevanceFeature() {
+    public SberRelevanceFeature() {
     }
 
-    public OrclRelevanceFeature(Long timestamp, Double relevance) {
+    public SberRelevanceFeature(Long timestamp, Double relevance) {
         this.timestamp = timestamp;
         this.relevance = relevance;
     }

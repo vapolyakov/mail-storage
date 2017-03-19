@@ -9,7 +9,7 @@ import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.data.mail.dao.RawHBaseDao;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.junit.After;

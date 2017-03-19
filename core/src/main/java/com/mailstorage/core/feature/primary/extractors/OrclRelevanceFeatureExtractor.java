@@ -3,7 +3,7 @@ package com.mailstorage.core.feature.primary.extractors;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 
 import java.util.Random;
 

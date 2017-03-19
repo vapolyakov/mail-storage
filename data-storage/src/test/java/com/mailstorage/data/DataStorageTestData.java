@@ -2,7 +2,7 @@ package com.mailstorage.data;
 
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 
 import java.util.*;
 

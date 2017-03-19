@@ -3,7 +3,7 @@ package com.mailstorage.core;
 import com.flipkart.hbaseobjectmapper.AbstractHBDAO;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
-import com.mailstorage.data.mail.entities.feature.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;

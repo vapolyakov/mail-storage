@@ -2,7 +2,7 @@ package com.mailstorage.core.feature.primary.extractors;
 
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.core.primary.PrimaryEntityExtractor;
-import com.mailstorage.data.mail.entities.feature.SberRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.SberRelevanceFeature;
 
 import java.util.Random;
 

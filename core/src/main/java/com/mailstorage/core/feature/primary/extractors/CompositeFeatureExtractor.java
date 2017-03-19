@@ -4,7 +4,7 @@ import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
 import com.mailstorage.core.primary.PrimaryEntityExtractor;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
 import com.mailstorage.data.mail.entities.artifact.SubjectArtifact;
-import com.mailstorage.data.mail.entities.feature.CompositeFeature;
+import com.mailstorage.data.mail.entities.feature.primary.CompositeFeature;
 
 import java.util.Random;
 

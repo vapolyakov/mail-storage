@@ -7,7 +7,7 @@ import com.mailstorage.core.artifact.BaseArtifactManager;
 import com.mailstorage.core.feature.primary.BaseFeatureManager;
 import com.mailstorage.data.mail.entities.Mail;
 import com.mailstorage.data.mail.entities.artifact.OrclWordArtifact;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;

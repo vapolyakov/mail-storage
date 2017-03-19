@@ -7,10 +7,10 @@ import com.mailstorage.core.feature.primary.extractors.OrclRelevanceFeatureExtra
 import com.mailstorage.core.feature.primary.extractors.SberRelevanceFeatureExtractor;
 import com.mailstorage.core.primary.CommonPrimaryEntityManager;
 import com.mailstorage.core.primary.PrimaryEntitiesRegistry;
-import com.mailstorage.data.mail.entities.feature.CompositeFeature;
-import com.mailstorage.data.mail.entities.feature.LengthFeature;
-import com.mailstorage.data.mail.entities.feature.OrclRelevanceFeature;
-import com.mailstorage.data.mail.entities.feature.SberRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.CompositeFeature;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.primary.OrclRelevanceFeature;
+import com.mailstorage.data.mail.entities.feature.primary.SberRelevanceFeature;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

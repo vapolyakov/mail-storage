@@ -3,7 +3,7 @@ package com.mailstorage.core.feature.secondary.accumulator;
 import com.mailstorage.core.CoreTestData;
 import com.mailstorage.data.mail.entities.artifact.AttachmentCountArtifact;
 import com.mailstorage.data.mail.entities.artifact.SberWordArtifact;
-import com.mailstorage.data.mail.entities.feature.LengthFeature;
+import com.mailstorage.data.mail.entities.feature.primary.LengthFeature;
 import org.junit.Assert;
 import org.junit.Test;
 

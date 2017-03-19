@@ -1,4 +1,4 @@
-package com.mailstorage.data.mail.entities.feature;
+package com.mailstorage.data.mail.entities.feature.primary;
 
 import com.flipkart.hbaseobjectmapper.HBColumn;
 import com.flipkart.hbaseobjectmapper.HBRowKey;
@@ -9,19 +9,19 @@ import com.mailstorage.data.mail.entities.BasePrimaryEntity;
  * @author metal
  */
 @HBTable("mail")
-public class SberRelevanceFeature extends BasePrimaryEntity {
+public class LengthFeature extends BasePrimaryEntity {
     @HBRowKey
     private Long timestamp;
 
-    @HBColumn(family = "feature", column = "sber_rel")
-    private Double relevance;
+    @HBColumn(family = "feature", column = "length")
+    private Long length;
 
-    public SberRelevanceFeature() {
+    public LengthFeature() {
     }
 
-    public SberRelevanceFeature(Long timestamp, Double relevance) {
+    public LengthFeature(Long timestamp, Long length) {
         this.timestamp = timestamp;
-        this.relevance = relevance;
+        this.length = length;
     }
 
     @Override
@@ -46,10 +46,10 @@ public class SberRelevanceFeature extends BasePrimaryEntity {
 
     @Override
     public boolean isInitialized() {
-        return relevance != null;
+        return length != null;
     }
 
-    public Double getRelevance() {
-        return relevance;
+    public Long getLength() {
+        return length;
     }
 }
